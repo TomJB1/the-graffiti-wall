@@ -11,6 +11,7 @@ body {
 
 p {
   font-size: 25px;
+  word-break: break-word;
 }
 
 hr {

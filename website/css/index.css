@@ -6,6 +6,7 @@
 body {
   background-image: url(/assets/wall.jpg);
   color: greenyellow;
+  background-color: darkred;
 }
 
 p {

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Finger+Paint&family=Rubik+Spray+Paint&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <h1>the wall</h1>
+    <p>Welcome to the wall. How does it work? There are a maximum of 15 messages on the wall. 
+        Upvote the one you like the most to keep it on the wall. Add your own to replace the least popular one. 
+        You can vote and add messages every 24 hours.</p>
+        {{if .Vote}}
+            <p>voted for {{.Vote}}.</p>
+        {{else}}
+            <p>vote carefuly! you get 1 vote a day.</p>
+        {{end}}
+        <h2>messages on the wall</h2>
+        <hr>
+        {{range .Messages}}
+            <p class="message">
+                
+                {{.Contents}} - 
+                {{.Name}} {{ if .Website}} | 
+                <a href="{{.Website}}">{{.Website}}</a> {{end}} {{ if .Email}} | 
+                <a href="mailto:{{.Email}}">{{.Email}}</a> {{end}}
+                {{if $.Vote}}
+                {{else}}
+                <form action="/vote" method="post"></form>
+                    <input type="hidden" name="Vote" value="{{.Id}}">
+                    <input type="submit" value="Vote for {{.Name}}">
+                </form>
+                {{end}}
+            </p>
+            <hr>
+        {{end}}
+    <h2>add your own message</h2>
+    {{if .SubmittedMessage}}
+    <p>already submitted message today. come back in 24 hours to add something new to the wall</p>
+    {{else}}
+    <form action="/add" method="post" id="add">
+        <label> your message
+            <textarea name="Contents" required></textarea>
+        </label>
+        <label> your name (displayed)
+            <input name="Name" required></input>
+        </label>
+        <label> your website (displayed, optional)
+            <input name="Website"></input>
+        </label>
+        <label> your email (displayed, optional)
+            <input name="Email" type="email"></input>
+        </label>
+        <input type="submit" value="Post Message">
+    </form>
+    {{end}}
+</body>
+</html>

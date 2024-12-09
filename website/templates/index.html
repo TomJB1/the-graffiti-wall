@@ -28,7 +28,7 @@
                 <a href="mailto:{{.Email}}">{{.Email}}</a> {{end}}
                 {{if $.Vote}}
                 {{else}}
-                <form action="/vote" method="post"></form>
+                <form action="/vote" method="post">
                     <input type="hidden" name="Vote" value="{{.Id}}">
                     <input type="submit" value="Vote for {{.Name}}">
                 </form>
